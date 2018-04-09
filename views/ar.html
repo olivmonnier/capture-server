@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="/aframe-master.js"></script>
+    <script src="/aframe-ar.min.js"></script>
+    <script>
+      window.SOURCE = '<%- source %>';
+    </script>
+  </head>
+  <body style='margin : 0px; overflow: hidden;'>
+    <a-scene antialias="true" arjs="trackingMethod: best;">
+      <a-assets>
+        <video id="remoteVideos"></video>
+      </a-assets>
+
+      <a-video src="#remoteVideos" rotation="-90 0 0" width="3.5" height="2"></a-video>
+
+      <a-marker-camera preset='hiro'></a-marker-camera>
+    </a-scene>
+    
+    <script src="/app.bundle.js"></script>
+  </body>
+</html>

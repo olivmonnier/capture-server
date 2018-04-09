@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        background: white;
+        display: -webkit-flex;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+        -webkit-flex-direction: column;
+      }
+      video {
+        display: block;
+        max-width: 100%;
+        background: rgba(0, 0, 0, 0.25);
+      }
+    </style>
+    <script>
+      window.SOURCE = '<%- source %>';
+    </script>
+  </head>
+  <body>
+    <video id="remoteVideos" controls></video>
+
+    <script src="/app.bundle.js"></script>
+  </body>
+</html>

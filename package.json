@@ -1,0 +1,30 @@
+{
+  "name": "capture-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copy:aframe": "copyfiles -f ./node_modules/aframe/dist/aframe-master.js ./public/dest",
+    "copy:ar": "copyfiles -f ./node_modules/ar.js/aframe/build/aframe-ar.min.js ./public/dest",
+    "copy": "npm run copy:aframe && npm run copy:ar",
+    "build": "npm run copy && webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aframe": "^0.8.1",
+    "ar.js": "^1.4.10",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "simple-peer": "^9.0.0",
+    "ws": "^5.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "copyfiles": "^2.0.0",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  }
+}
