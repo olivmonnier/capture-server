@@ -16,8 +16,6 @@ function onOpen() {
 }
 
 function onMessage(data) {
-  console.log('data', data)
-
   const { state, signal } = JSON.parse(data.data)
 
   if (state === 'connect') {
@@ -48,11 +46,13 @@ function handlerPeer(peer, socket) {
 
 function getParameters() {
   let parameters;
+  const room = prompt('Enter a room');
   const source = window.SOURCE || null;
   const params = queryParameters();
 
   parameters = {
     state: 'ready',
+    room,
     params
   }
 

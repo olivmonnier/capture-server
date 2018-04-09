@@ -49,20 +49,13 @@ wss.broadcast = function broadcast(data) {
 };
 
 wss.on('connection', function (ws) {
-  if (wss.clients.size > 2) {
-    ws.terminate();
-    return;
-  }
-
-  if (wss.clients.size <= 2) {
-    ws.on('message', function (data) {
-      wss.clients.forEach(function (client) {
-        if (client !== ws && client.readyState === WebSocket.OPEN) {
-          client.send(data)
-        }
-      })
+  ws.on('message', function (data) {
+    wss.clients.forEach(function (client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data)
+      }
     })
-  }
+  })
 })
 
 server.listen(process.env.PORT || 8080, function () {
