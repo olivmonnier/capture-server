@@ -28,7 +28,7 @@ function onConnect() {
 function onMessage(data) {
   const { state, signal, sources } = JSON.parse(data)
 
-  if (state === 'connect') {
+  if (state === 'connect' && !peer.connected) {
     peer.signal(signal)
   } else if (state === 'sources') {
     console.log(sources)
