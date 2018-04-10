@@ -17,7 +17,7 @@ function onConnect() {
 
   peer = new Peer();
   handlerPeer(peer, socket);
-  
+
   socket.emit('message', JSON.stringify({
     state: 'ready',
     peerId: peer._id,
@@ -53,6 +53,7 @@ function handlerPeer(peer, socket) {
   peer.on('signal', signal => {
     socket.emit('message', JSON.stringify({
       state: 'connect',
+      peerId: peer._id,
       signal
     }))
   })
