@@ -2,10 +2,10 @@ const ejs = require('ejs');
 const http = require('http');
 const express = require('express');
 const path = require('path');
-const WebSocket = require('ws');
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server, clientTracking: true });
+const io = require('socket.io')(server);
+const PORT = process.env.PORT || 8080;
 
 app.engine('html', ejs.renderFile);
 app.use(express.static(__dirname + '/public/dest'));
@@ -40,24 +40,21 @@ app.get('/:source', function (req, res) {
   })
 });
 
-wss.broadcast = function broadcast(data) {
-  wss.clients.forEach(function each(client) {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(data);
-    }
-  });
-};
 
-wss.on('connection', function (ws) {
-  ws.on('message', function (data) {
-    wss.clients.forEach(function (client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(data)
-      }
-    })
+io.on('connection', function (socket) {
+  const room = socket.handshake.query.token || socket.id;
+
+  socket.join(room);
+
+  socket.on('message', (data) => {
+    socket.broadcast.to(room).emit('message', data)
+  })
+
+  socket.on('disconnect', () => {
+    socket.leave(room)
   })
 })
 
-server.listen(process.env.PORT || 8080, function () {
-  console.log(`Server run on port ${process.env.PORT || 8080}`)
+server.listen(PORT, function () {
+  console.log(`Server run on port ${PORT}`)
 });
