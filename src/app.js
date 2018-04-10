@@ -13,21 +13,22 @@ socket.on('connect', onConnect)
 socket.on('message', onMessage)
 
 function onConnect() {
-  const parameters = getParameters();
+  const source = window.SOURCE || null;
 
   peer = new Peer();
   handlerPeer(peer, socket);
-  socket.emit('message', JSON.stringify(parameters));
+
+  socket.emit('message', JSON.stringify({
+    state: 'ready',
+    peerId: peer._id,
+    source
+  }));
 }
 
 function onMessage(data) {
   const { state, signal, sources } = JSON.parse(data)
 
-  if (state === 'connect') {
-    if (peer && peer.destroyed) {
-      peer = new Peer()
-      handlerPeer(peer, socket)
-    }
+  if (state === 'connect' && !peer.connected) {
     peer.signal(signal)
   } else if (state === 'sources') {
     console.log(sources)
@@ -52,6 +53,7 @@ function handlerPeer(peer, socket) {
   peer.on('signal', signal => {
     socket.emit('message', JSON.stringify({
       state: 'connect',
+      peerId: peer._id,
       signal
     }))
   })
@@ -63,19 +65,4 @@ function handlerPeer(peer, socket) {
   peer.on('close', () => {
     peer.destroy()
   })
-}
-
-function getParameters() {
-  let parameters;
-  const source = window.SOURCE || null;
-  const params = queryParameters();
-
-  parameters = {
-    state: 'ready',
-    params
-  }
-
-  if (source) parameters = Object.assign(parameters, { source });
-
-  return parameters;
 }
