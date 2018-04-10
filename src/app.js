@@ -39,7 +39,10 @@ function getRoom() {
 
   if (!room) {
     room = prompt('Enter a room');
-    localStorage.setItem('channel', room);
+
+    if (room !== '') {
+      localStorage.setItem('channel', room);
+    }
   }
 
   return room;

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "copy:aframe": "copyfiles -f ./node_modules/aframe/dist/aframe-master.js ./public/dest",
-    "copy:ar": "copyfiles -f ./node_modules/ar.js/aframe/build/aframe-ar.min.js ./public/dest",
+    "copy:aframe": "copyfiles -f ./node_modules/aframe/dist/aframe-master.js ./dest",
+    "copy:ar": "copyfiles -f ./node_modules/ar.js/aframe/build/aframe-ar.min.js ./dest",
     "copy": "npm run copy:aframe && npm run copy:ar",
     "build": "npm run copy && webpack"
   },

@@ -8,7 +8,7 @@ const io = require('socket.io')(server);
 const PORT = process.env.PORT || 8080;
 
 app.engine('html', ejs.renderFile);
-app.use(express.static(__dirname + '/public/dest'));
+app.use(express.static(__dirname + '/dest'));
 
 app.get('/', function (req, res) {
   res.render(path.join(__dirname + '/views/index.html'), { source: '' })
@@ -39,7 +39,6 @@ app.get('/:source', function (req, res) {
     source: req.params.source
   })
 });
-
 
 io.on('connection', function (socket) {
   const room = socket.handshake.query.token || socket.id;
