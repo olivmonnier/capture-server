@@ -26,11 +26,15 @@ function onConnect() {
 }
 
 function onMessage(data) {
-  const { state, signal, sources } = JSON.parse(data)
+  const { state, signal, sources, peerId } = JSON.parse(data)
 
   if (state === 'connect' && !peer.connected) {
-    peer.signal(signal)
-  } else if (state === 'sources') {
+    peer.signal(signal);
+    socket.emit('message', JSON.stringify({
+      state: 'sources',
+      peerId: peer._id
+    }))
+  } else if (state === 'sources' && peerId == peer._id) {
     console.log(sources)
   }
 }
