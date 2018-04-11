@@ -15,6 +15,9 @@ socket.on('message', onMessage)
 function onConnect() {
   const source = window.SOURCE || null;
 
+  if (peer && !peer.destroyed) {
+    peer.destroy();
+  }
   peer = new Peer();
   handlerPeer(peer, socket);
 
