@@ -7,13 +7,15 @@
     "start": "node index",
     "copy:aframe": "copyfiles -f ./node_modules/aframe/dist/aframe-master.js ./dest",
     "copy:ar": "copyfiles -f ./node_modules/ar.js/aframe/build/aframe-ar.min.js ./dest",
-    "copy": "npm run copy:aframe && npm run copy:ar",
+    "copy:controls": "copyfiles -f ./node_modules/aframe-extras/dist/aframe-extras.controls.min.js ./dest",
+    "copy": "npm run copy:aframe && npm run copy:ar && npm run copy:controls",
     "build": "npm run copy && webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "aframe": "^0.8.1",
+    "aframe-extras": "^4.0.2",
     "ar.js": "^1.4.10",
     "ejs": "^2.5.8",
     "express": "^4.16.3",

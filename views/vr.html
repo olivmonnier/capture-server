@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <script src="/aframe-master.js"></script>
+    <script src="/aframe-extras.controls.min.js"></script>
     <script>
       window.SOURCE = '<%- source %>';
     </script>
@@ -15,6 +16,14 @@
       </a-assets>
 
       <a-video src="#remoteVideos" position="0 1.5 -8" width="16" height="9"></a-video>
+
+      <a-entity id="rig" movement-controls kinematic-body position="0 0 0">
+
+        <a-entity id="camera"
+          camera
+          position="0 1.6 0"
+          look-controls="pointerLockEnabled: true"></a-entity>
+      </a-entity>
 
     </a-scene>
 
